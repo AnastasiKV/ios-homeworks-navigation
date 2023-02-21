@@ -11,11 +11,6 @@ class PostViewController: UIViewController {
     
     var titlePost: String = "Weekends"
     
-
-    @IBAction func goInfo(_ sender: UIBarButtonItem) {
-    present(ModalInfoViewController(), animated: true, completion: nil)
-        
-    }
     
     
     override func viewDidLoad() {

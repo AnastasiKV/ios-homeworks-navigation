@@ -18,8 +18,9 @@ class ModalInfoViewController: UIViewController {
     let alert = UIAlertController(title: "Вы хотите изменить пост?", message: "Сделайте это действие, если уверены в своем решении", preferredStyle: .alert)
         
     
-    alert.addAction(UIAlertAction(title: "Да", style: .default, handler: nil))
-    alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler:{(alert: UIAlertAction!) in print("Да")}))
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler:{(alert: UIAlertAction!) in print("Нет")}))
+
         
     self.present(alert, animated: true, completion: nil)
         
