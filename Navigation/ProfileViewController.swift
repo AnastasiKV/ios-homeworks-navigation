@@ -9,27 +9,61 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    var titleProfile: String = "Profile"
-    
-    let profileView = ProfileHeaderView()
 
+    
+    var titleProfile: String = "Profile"
+        
+    var profileView: ProfileHeaderView = ProfileHeaderView()
+        
+    
+    var changeTitleButton: UIButton {
+        let changeTitleButton = UIButton()
+        changeTitleButton.translatesAutoresizingMaskIntoConstraints = false
+        changeTitleButton.backgroundColor = UIColor.systemCyan
+        changeTitleButton.setTitle("Title", for: .normal)
+        changeTitleButton.titleLabel?.textColor = .white
+            return changeTitleButton
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .lightGray
-        self.navigationItem.title = titleProfile
-        
-        view.backgroundColor = .white
         view.addSubview(profileView)
+        view.backgroundColor = .lightGray
+        self.navigationItem.title = titleProfile
+        setupConstraint()
         
+
     }
-    
+        
 
     override func viewWillLayoutSubviews() {
-        profileView.frame = CGRect(x: 0, y: 95, width: 400, height: 700)
-        
-        
+
+
     }
+    
+    
+    func setupConstraint() {
+            view.addSubview(profileView)
+            view.addSubview(changeTitleButton)
+            profileView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            profileView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            profileView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            profileView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            profileView.heightAnchor.constraint(equalToConstant: 220),
+            profileView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            changeTitleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            changeTitleButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            changeTitleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            changeTitleButton.heightAnchor.constraint(equalToConstant: 50)
+            
+                ])
+        
+   }
+
 }
 
 
