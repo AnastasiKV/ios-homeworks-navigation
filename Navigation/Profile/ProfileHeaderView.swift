@@ -11,7 +11,7 @@ final class ProfileHeaderView: UIView {
     
     
     
-   private var avatarImageView: UIImageView  {
+   private var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
        avatarImageView.image = UIImage(named: "ImageAcon")
        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,10 +22,10 @@ final class ProfileHeaderView: UIView {
        avatarImageView.clipsToBounds = true
         return avatarImageView
         
-    }
+    }()
     
     
-    var fullNameLabel: UILabel  {
+    private var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
         fullNameLabel.text = "Hipster Lion"
         fullNameLabel.textColor = .black
@@ -33,10 +33,10 @@ final class ProfileHeaderView: UIView {
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return fullNameLabel
         
-    }
+    }()
     
     
-    var statusLabel: UILabel {
+    private var statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.text = "Waiting for something..."
         statusLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
@@ -44,12 +44,12 @@ final class ProfileHeaderView: UIView {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         return statusLabel
         
-    }
+    }()
     
     
-    var setStatusButton: UIButton {
+    private var setStatusButton: UIButton = {
         let setStatusButton = UIButton()
-        setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        setStatusButton.addTarget(ProfileHeaderView.self, action: #selector(buttonPressed), for: .touchUpInside)
         setStatusButton.layer.cornerRadius = 14
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.shadowRadius = 4.0
@@ -60,7 +60,7 @@ final class ProfileHeaderView: UIView {
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
         return setStatusButton
         
-    }
+    }()
     
     
     override init(frame:CGRect) {
