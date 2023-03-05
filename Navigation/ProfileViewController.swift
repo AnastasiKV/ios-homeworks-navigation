@@ -16,20 +16,20 @@ class ProfileViewController: UIViewController {
     var profileView: ProfileHeaderView = ProfileHeaderView()
         
     
-    var changeTitleButton: UIButton {
+    var changeTitleButton: UIButton = {
         let changeTitleButton = UIButton()
         changeTitleButton.translatesAutoresizingMaskIntoConstraints = false
-        changeTitleButton.backgroundColor = UIColor.systemCyan
-        changeTitleButton.setTitle("Title", for: .normal)
+        changeTitleButton.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+        changeTitleButton.setTitle("Change Title", for: .normal)
         changeTitleButton.titleLabel?.textColor = .white
             return changeTitleButton
-    }
+    }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(profileView)
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .white
         self.navigationItem.title = titleProfile
         setupConstraint()
         
