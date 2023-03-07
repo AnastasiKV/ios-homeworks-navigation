@@ -49,7 +49,7 @@ final class ProfileHeaderView: UIView {
     
     private var setStatusButton: UIButton = {
         let setStatusButton = UIButton()
-        setStatusButton.addTarget(ProfileHeaderView.self, action: #selector(buttonPressed), for: .touchUpInside)
+        setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         setStatusButton.layer.cornerRadius = 14
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.shadowRadius = 4.0
