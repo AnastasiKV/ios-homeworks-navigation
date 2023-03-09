@@ -15,11 +15,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return userFeed
     }
     
+
+    
     func createSecondController() -> UINavigationController {
         let profile = UINavigationController(rootViewController: ProfileViewController ())
         profile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
+        profile.pushViewController(LogInViewController(), animated: true)
         return profile
     }
+    
+    
+    func createThirdController() ->  UINavigationController {
+        let logIn = UINavigationController(rootViewController: LogInViewController ())
+        return logIn
+    }
+    
+
     
 
     func createTabBar() -> UITabBarController {

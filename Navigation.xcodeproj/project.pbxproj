@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A7B98A229B720970063197C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7B98A129B720970063197C /* LogInViewController.swift */; };
 		9A9208BF299398A80096A657 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9208BE299398A80096A657 /* FeedViewController.swift */; };
 		9A9208C1299398BD0096A657 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9208C0299398BD0096A657 /* ProfileViewController.swift */; };
 		9A9208C529939F610096A657 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9208C429939F610096A657 /* PostViewController.swift */; };
 		9A9208C72993ABBF0096A657 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9208C62993ABBF0096A657 /* Post.swift */; };
 		9A9208CB2993CAE90096A657 /* ModalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9208C82993B91D0096A657 /* ModalInfoViewController.swift */; };
+		9ACCE90529A7430B0090FB61 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACCE90429A7430B0090FB61 /* ProfileHeaderView.swift */; };
 		9AD03037298A875A00F2024A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD03036298A875A00F2024A /* AppDelegate.swift */; };
 		9AD03039298A875A00F2024A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD03038298A875A00F2024A /* SceneDelegate.swift */; };
 		9AD0303B298A875A00F2024A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD0303A298A875A00F2024A /* ViewController.swift */; };
@@ -20,11 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A7B98A129B720970063197C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		9A9208BE299398A80096A657 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		9A9208C0299398BD0096A657 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9A9208C429939F610096A657 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		9A9208C62993ABBF0096A657 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9A9208C82993B91D0096A657 /* ModalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ModalInfoViewController.swift; sourceTree = "<group>"; usesTabs = 0; wrapsLines = 1; };
+		9ACCE90429A7430B0090FB61 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		9AD03033298A875A00F2024A /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD03036298A875A00F2024A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9AD03038298A875A00F2024A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9ACCE90329A742C10090FB61 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				9ACCE90429A7430B0090FB61 /* ProfileHeaderView.swift */,
+				9A7B98A129B720970063197C /* LogInViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		9AD0302A298A875A00F2024A = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +88,7 @@
 				9A9208C429939F610096A657 /* PostViewController.swift */,
 				9A9208C82993B91D0096A657 /* ModalInfoViewController.swift */,
 				9A9208C62993ABBF0096A657 /* Post.swift */,
+				9ACCE90329A742C10090FB61 /* Profile */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -153,9 +167,11 @@
 				9A9208C529939F610096A657 /* PostViewController.swift in Sources */,
 				9AD0303B298A875A00F2024A /* ViewController.swift in Sources */,
 				9AD03037298A875A00F2024A /* AppDelegate.swift in Sources */,
+				9ACCE90529A7430B0090FB61 /* ProfileHeaderView.swift in Sources */,
 				9A9208C1299398BD0096A657 /* ProfileViewController.swift in Sources */,
 				9A9208BF299398A80096A657 /* FeedViewController.swift in Sources */,
 				9A9208C72993ABBF0096A657 /* Post.swift in Sources */,
+				9A7B98A229B720970063197C /* LogInViewController.swift in Sources */,
 				9AD03039298A875A00F2024A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
