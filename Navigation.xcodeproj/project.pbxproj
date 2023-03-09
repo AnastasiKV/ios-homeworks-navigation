@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A7B98A229B720970063197C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7B98A129B720970063197C /* LogInViewController.swift */; };
 		9A9208BF299398A80096A657 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9208BE299398A80096A657 /* FeedViewController.swift */; };
 		9A9208C1299398BD0096A657 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9208C0299398BD0096A657 /* ProfileViewController.swift */; };
 		9A9208C529939F610096A657 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9208C429939F610096A657 /* PostViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A7B98A129B720970063197C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		9A9208BE299398A80096A657 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		9A9208C0299398BD0096A657 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9A9208C429939F610096A657 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				9ACCE90429A7430B0090FB61 /* ProfileHeaderView.swift */,
+				9A7B98A129B720970063197C /* LogInViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				9A9208C1299398BD0096A657 /* ProfileViewController.swift in Sources */,
 				9A9208BF299398A80096A657 /* FeedViewController.swift in Sources */,
 				9A9208C72993ABBF0096A657 /* Post.swift in Sources */,
+				9A7B98A229B720970063197C /* LogInViewController.swift in Sources */,
 				9AD03039298A875A00F2024A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
