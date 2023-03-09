@@ -13,6 +13,7 @@ class ProfileViewController: UIViewController {
     
     var titleProfile: String = "Profile"
         
+ 
     var profileView: ProfileHeaderView = ProfileHeaderView()
         
     
