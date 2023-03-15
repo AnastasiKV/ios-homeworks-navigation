@@ -8,7 +8,7 @@
 import UIKit
 
 class PostTableViewCell: UITableViewCell {
-    
+
 
     private let contentPostView: UIView = {
         let contentPostView = UIView()
