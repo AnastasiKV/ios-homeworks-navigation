@@ -2,7 +2,14 @@
 //  Identifier.swift
 //  Navigation
 //
-//  Created by Олег Солодченко on 14.03.2023.
+//  Created by Anastasiia Kulikova on 14.03.2023.
 //
 
-import Foundation
+import UIKit
+
+
+extension UIView {
+    static var identifier: String {
+        String(describing: self)
+    }
+}
