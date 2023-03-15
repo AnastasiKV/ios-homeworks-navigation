@@ -45,7 +45,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
      }()
      
      
-     private var setStatusButton: UIButton = {
+     private lazy var setStatusButton: UIButton = {
          let setStatusButton = UIButton()
          setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
          setStatusButton.layer.cornerRadius = 14
