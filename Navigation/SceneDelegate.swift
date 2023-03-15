@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createFirstController() -> UINavigationController {
         let userFeed = UINavigationController(rootViewController: FeedViewController ())
-        userFeed.tabBarItem = UITabBarItem(title: "User Feed", image: UIImage(systemName: "house.fill"), tag: 0)
+        userFeed.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "house.fill"), tag: 0)
         return userFeed
     }
     
