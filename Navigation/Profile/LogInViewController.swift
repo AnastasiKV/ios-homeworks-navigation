@@ -85,7 +85,7 @@ class LogInViewController: UIViewController {
     }()
     
     
-    private var button: UIButton = {
+    private lazy var button: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
