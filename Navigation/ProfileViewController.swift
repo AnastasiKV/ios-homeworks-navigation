@@ -7,15 +7,12 @@
 
 import UIKit
 
- final class ProfileViewController: UIViewController {
- 
-  
-   
-    private let allPosts: [[PostModel]] = PostModel.makeMockPost()
- 
-     
+final class ProfileViewController: UIViewController  {
     
-     
+    private var section: [String] {["PostModel"]}
+    private var allPosts = PostModel.makeMockPost()
+    
+    
     private lazy var  profileTableView : UITableView = {
         let profileTableView = UITableView(frame: .zero, style: .grouped)
         profileTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,66 +26,72 @@ import UIKit
         return profileTableView
     }()
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        
     }
-     
-     
-     
+    
+    
+    
     func layout() {
         view.addSubview(profileTableView)
         
         
         NSLayoutConstraint.activate([
-
+            
             profileTableView.topAnchor.constraint(equalTo: view.topAnchor),
             profileTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             profileTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
         ])
     }
-
+    
 }
 
 
 extension ProfileViewController: UITableViewDataSource {
-       
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return section.count
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        allPosts[section].count
+        return section  == 0 ? 1 : allPosts.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+//            cell.setupCell(section [0])
+            cell.selectionStyle = .none
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-        cell.setupCell(post: allPosts[indexPath.section][indexPath.row])
+        cell.setupCell(post: allPosts[indexPath.row])
+        cell.selectionStyle = .none
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileTableHeaderView.identifier)
-        return header
-    }
-    
 }
-
-
-extension ProfileViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 250
-       }
     
+    
+    extension ProfileViewController: UITableViewDelegate {
+        
+        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            if section == 0 {
+                guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileTableHeaderView.identifier)
+                else {
+                    return nil
+                }
+                return header
+            }
+            return nil
+        }
+        
+        
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 240
+        }
 }
-
-
-
-
-
-
