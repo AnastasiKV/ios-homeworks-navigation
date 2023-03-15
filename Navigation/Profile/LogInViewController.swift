@@ -24,9 +24,22 @@ class LogInViewController: UIViewController {
         let logoStackView = UIStackView()
         logoStackView.translatesAutoresizingMaskIntoConstraints = false
         logoStackView.axis = .vertical
-        logoStackView.distribution = .fillEqually
+        logoStackView.distribution = .fillProportionally
+        logoStackView.layer.cornerRadius = 10
+        logoStackView.layer.borderWidth = 0.5
+        logoStackView.layer.borderColor = UIColor.lightGray.cgColor
+        logoStackView.clipsToBounds = true
         return logoStackView
         
+    }()
+    
+    
+    private let logoLineView: UIView = {
+        let logoLineView = UIView()
+        logoLineView.translatesAutoresizingMaskIntoConstraints = false
+        logoLineView.backgroundColor = .lightGray
+        return logoLineView
+    
     }()
     
     
@@ -41,20 +54,15 @@ class LogInViewController: UIViewController {
     private lazy var loginArea: UITextField = {
         let loginArea = UITextField()
         loginArea.translatesAutoresizingMaskIntoConstraints = false
-        loginArea.layer.cornerRadius = 10
-        loginArea.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        loginArea.layer.borderColor = UIColor.lightGray.cgColor
-        loginArea.layer.borderWidth = 0.5
         loginArea.backgroundColor = .systemGray6
         loginArea.autocapitalizationType = .none
         loginArea.textColor = .black
         loginArea.tag = 0
         loginArea.returnKeyType = .continue
         loginArea.delegate = self
-        loginArea.borderStyle = .roundedRect
         loginArea.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         loginArea.tintColor = UIColor(named: "AccentColor")
-        loginArea.placeholder = "Email or phone"
+        loginArea.placeholder = "  Email or phone"
         return loginArea
     }()
     
@@ -63,11 +71,6 @@ class LogInViewController: UIViewController {
         let passwordArea = UITextField()
         passwordArea.translatesAutoresizingMaskIntoConstraints = false
         passwordArea.isSecureTextEntry = true
-        passwordArea.layer.cornerRadius = 10
-        passwordArea.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        passwordArea.layer.borderColor = UIColor.lightGray.cgColor
-        passwordArea.layer.borderWidth = 0.5
-        passwordArea.borderStyle = .roundedRect
         passwordArea.backgroundColor = .systemGray6
         passwordArea.autocapitalizationType = .none
         passwordArea.textColor = .black
@@ -77,7 +80,7 @@ class LogInViewController: UIViewController {
         passwordArea.tintColor = UIColor(named: "AccentColor")
         passwordArea.clipsToBounds = true
         passwordArea.returnKeyType = .done
-        passwordArea.placeholder = "Password"
+        passwordArea.placeholder = "  Password"
         return passwordArea
     }()
     
@@ -134,11 +137,17 @@ class LogInViewController: UIViewController {
     
      func layout() {
          view.addSubview(logScrollView)
+
+         
          logScrollView.addSubview(logoStackView)
          logScrollView.addSubview(logoImage)
          logScrollView.addSubview(button)
+         
          logoStackView.addArrangedSubview(loginArea)
+         logoStackView.addArrangedSubview(logoLineView)
          logoStackView.addArrangedSubview(passwordArea)
+        
+
         
          NSLayoutConstraint.activate([
             
@@ -152,7 +161,10 @@ class LogInViewController: UIViewController {
             logoStackView.leadingAnchor.constraint(equalTo: logScrollView.leadingAnchor, constant: 16),
             logoStackView.centerXAnchor.constraint(equalTo: logScrollView.centerXAnchor),
             logoStackView.heightAnchor.constraint(equalToConstant: 100),
-
+            
+            logoLineView.heightAnchor.constraint(equalToConstant: 0.5),
+            logoLineView.leadingAnchor.constraint(equalTo: logoStackView.leadingAnchor),
+            logoLineView.trailingAnchor.constraint(equalTo: logoStackView.trailingAnchor),
             
             logoImage.topAnchor.constraint(equalTo: logScrollView.topAnchor, constant: 120),
             logoImage.widthAnchor.constraint(equalToConstant: 100),
@@ -185,6 +197,8 @@ extension LogInViewController: UITextFieldDelegate {
         logoStackView.endEditing(true)
         return true
     }
+    
+    
     
 }
 
