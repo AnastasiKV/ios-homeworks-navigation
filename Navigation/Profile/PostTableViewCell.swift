@@ -102,33 +102,41 @@ class PostTableViewCell: UITableViewCell {
 
         [contentPostView, userPost, descriptionPost, imagePost, likesPost, viewsPost].forEach { contentView.addSubview($0) }
         
+        let heightView: CGFloat = 100
+        let viewInset: CGFloat = 8
+        let imageInset: CGFloat = 10
         
             NSLayoutConstraint.activate([
                 
-             contentPostView.leadingAnchor.constraint(equalTo: leadingAnchor),
-             contentPostView.trailingAnchor.constraint(equalTo: trailingAnchor),
-              
-              userPost.topAnchor.constraint(equalTo: contentPostView.topAnchor, constant: 16),
-              userPost.leadingAnchor.constraint(equalTo: contentPostView.leadingAnchor, constant: 16),
+            contentPostView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: viewInset),
+            contentPostView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -viewInset),
+            contentPostView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -viewInset),
+            contentPostView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: viewInset),
+               
+        
+            userPost.topAnchor.constraint(equalTo: contentPostView.topAnchor, constant: 16),
+            userPost.leadingAnchor.constraint(equalTo: contentPostView.leadingAnchor, constant: 16),
 
-              imagePost.topAnchor.constraint(equalTo: userPost.bottomAnchor, constant: 4),
-              imagePost.leadingAnchor.constraint(equalTo: contentPostView.leadingAnchor),
-              imagePost.trailingAnchor.constraint(equalTo: contentPostView.trailingAnchor),
-              imagePost.centerXAnchor.constraint(equalTo: contentPostView.centerXAnchor),
-              imagePost.heightAnchor.constraint(equalTo: imagePost.widthAnchor),
-              imagePost.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-                
-              descriptionPost.topAnchor.constraint(equalTo: imagePost.bottomAnchor, constant: 16),
-              descriptionPost.leadingAnchor.constraint(equalTo: contentPostView.leadingAnchor, constant: 16),
-              descriptionPost.trailingAnchor.constraint(equalTo: contentPostView.trailingAnchor, constant: -16),
-                
-              likesPost.topAnchor.constraint(equalTo: descriptionPost.bottomAnchor, constant: 16),
-              likesPost.leadingAnchor.constraint(equalTo: contentPostView.leadingAnchor, constant: 16),
-              likesPost.bottomAnchor.constraint(equalTo: contentPostView.bottomAnchor, constant: -16),
+            imagePost.topAnchor.constraint(equalTo: userPost.bottomAnchor, constant: imageInset),
+            imagePost.leadingAnchor.constraint(equalTo: contentPostView.leadingAnchor, constant: -imageInset),
+            imagePost.widthAnchor.constraint(equalToConstant: heightView - imageInset * 5),
+            imagePost.trailingAnchor.constraint(equalTo: contentPostView.trailingAnchor),
+            imagePost.centerXAnchor.constraint(equalTo: contentPostView.centerXAnchor),
+            imagePost.heightAnchor.constraint(equalTo: imagePost.widthAnchor),
 
-              viewsPost.topAnchor.constraint(equalTo: descriptionPost.bottomAnchor, constant: 16),
-              viewsPost.trailingAnchor.constraint(equalTo: contentPostView.trailingAnchor, constant: -16),
-              viewsPost.bottomAnchor.constraint(equalTo: contentPostView.bottomAnchor, constant: -16)
+    
+                
+            descriptionPost.topAnchor.constraint(equalTo: imagePost.bottomAnchor, constant: 16),
+            descriptionPost.leadingAnchor.constraint(equalTo: contentPostView.leadingAnchor, constant: 16),
+            descriptionPost.trailingAnchor.constraint(equalTo: contentPostView.trailingAnchor, constant: -16),
+
+            likesPost.topAnchor.constraint(equalTo: descriptionPost.bottomAnchor, constant: 16),
+            likesPost.leadingAnchor.constraint(equalTo: contentPostView.leadingAnchor, constant: 16),
+            likesPost.bottomAnchor.constraint(equalTo: contentPostView.bottomAnchor, constant: -16),
+
+            viewsPost.topAnchor.constraint(equalTo: descriptionPost.bottomAnchor, constant: 16),
+            viewsPost.trailingAnchor.constraint(equalTo: contentPostView.trailingAnchor, constant: -16),
+            viewsPost.bottomAnchor.constraint(equalTo: contentPostView.bottomAnchor, constant: -16)
                 
             ])
         }
