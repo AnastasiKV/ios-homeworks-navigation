@@ -31,7 +31,7 @@ class FeedViewController: UIViewController {
           self.navigationController?.pushViewController(postViewController, animated: true)
 
          
-          
+    
       }
 }
 
