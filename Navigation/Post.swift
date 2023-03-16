@@ -11,12 +11,11 @@ import UIKit
 struct PostModel {
     
     let author: String
-    let description: String
+    let description: String?
     let image: UIImage
     var likes: Int
     var views: Int
-    
-    
+
     static func makeMockPost() -> [PostModel] {
         var examplePost = [PostModel]()
         
@@ -27,7 +26,7 @@ struct PostModel {
         examplePost.append(PostModel(author: "kotiki_meow", description: "It's so cute", image: UIImage(named: "post_3")!, likes: 25678, views: 27905))
         
         examplePost.append(PostModel(author: "vkusvill", description: "Друзья, хотим напомнить, что в каталоге ВкусВилла вы можете найти приятные подарки, цветы, и конечно, торты с праздничным декором", image: UIImage(named: "post_4")!, likes: 4513, views: 5387))
-        
+   
         return examplePost
     }
 }
