@@ -19,16 +19,16 @@ class PostViewController: UIViewController {
         self.navigationItem.title = titlePost
         
         
-    let buttonInfo = UIBarButtonItem(title: "Info", style: .plain, target: self, action:  #selector(buttonAction))
-    navigationItem.rightBarButtonItem = buttonInfo
+        let buttonInfo = UIBarButtonItem(title: "Info", style: .plain, target: self, action:  #selector(buttonAction))
+        navigationItem.rightBarButtonItem = buttonInfo
         
     }
     
     @objc func buttonAction() {
         let buttonInfo1 = ModalInfoViewController()
         self.navigationController?.pushViewController(buttonInfo1, animated: true)
-
-    
+        
+        
     }
 }
 

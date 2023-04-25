@@ -108,13 +108,13 @@ class PostTableViewCell: UITableViewCell {
     
     
     private func customizeCell() {
-        contentPostView.backgroundColor = .white
+        contentView.backgroundColor = .white
     }
     
     
     func layout() {
         
-        [contentPostView, userPost, descriptionPost, imagePost, likesPost, viewsPost ].forEach { contentView.addSubview($0) }
+        [ contentPostView, userPost, descriptionPost, imagePost, likesPost, viewsPost ].forEach { contentView.addSubview($0) }
         
         
         let heightView: CGFloat = 100
@@ -123,12 +123,10 @@ class PostTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             
-            
             contentPostView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: viewInset),
             contentPostView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -viewInset),
             contentPostView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -viewInset),
             contentPostView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: viewInset),
-            
             
             userPost.topAnchor.constraint(equalTo: contentPostView.topAnchor, constant: 16),
             userPost.leadingAnchor.constraint(equalTo: contentPostView.leadingAnchor, constant: 16),
@@ -154,8 +152,9 @@ class PostTableViewCell: UITableViewCell {
             viewsPost.trailingAnchor.constraint(equalTo: contentPostView.trailingAnchor, constant: -16),
             viewsPost.bottomAnchor.constraint(equalTo: contentPostView.bottomAnchor, constant: -16)
             
+            
         ])
     }
-    
 }
+
 

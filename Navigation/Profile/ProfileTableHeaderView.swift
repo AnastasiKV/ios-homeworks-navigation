@@ -7,7 +7,9 @@
 
 import UIKit
 
+
 class ProfileTableHeaderView: UITableViewHeaderFooterView  {
+    
     
     private var statusText: String? = nil
     
@@ -41,20 +43,20 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView  {
         let statusLabel = UILabel()
         statusLabel.text = ""
         statusLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
-        statusLabel.textColor = .gray
+        statusLabel.textColor = .lightGray
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         return statusLabel
         
     }()
     
-           
+    
     private lazy var statusField: UITextField = {
         let status = UITextField()
         status.translatesAutoresizingMaskIntoConstraints = false
         status.layer.cornerRadius = 12
         status.backgroundColor = .white
         status.textColor = .black
-        status.font = UIFont.boldSystemFont(ofSize: 15.0)
+        status.font = UIFont.systemFont(ofSize: 15)
         status.layer.borderWidth = 1
         status.layer.borderColor = UIColor.black.cgColor
         status.placeholder = "Введите статус..."
@@ -80,63 +82,62 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView  {
         
     }()
     
-    
     override init(reuseIdentifier: String?) {
-            super.init(reuseIdentifier: reuseIdentifier)
-            setupLayout()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+        super.init(reuseIdentifier: reuseIdentifier)
+        setupLayout()
+    }
     
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     @objc func buttonAction() {
-            guard statusField.text != "" else {
-                statusField.shake()
-                return
-            }
-            statusText = self.statusField.text!
-            statusLabel.text = "\(statusText ?? "")"
-            self.statusField.text = nil
-            self.endEditing(true)
+        guard statusField.text != "" else {
+            statusField.shake()
+            return
         }
-
+        statusText = self.statusField.text!
+        statusLabel.text = "\(statusText ?? "")"
+        self.statusField.text = nil
+        self.endEditing(true)
+    }
+    
     
     func setupLayout() {
-       
+        
         self.addSubview(avatarImageView)
         self.addSubview(fullNameLabel)
         self.addSubview(statusLabel)
         self.addSubview(statusField)
         self.addSubview(setStatusButton)
-       
-    
-
+        
         NSLayoutConstraint.activate([
+            
             avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             avatarImageView.heightAnchor.constraint(equalToConstant: 120),
             avatarImageView.widthAnchor.constraint(equalToConstant: 120),
             
-    
-            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            
+            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
             
-
+            
             statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
             statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
             statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -70),
             
             
-            statusField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
+            statusField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
             statusField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            statusField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -15),
+            statusField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -20),
             statusField.heightAnchor.constraint(equalToConstant: 40),
             
             
-            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 35),
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 15),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50)
@@ -147,12 +148,13 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView  {
 }
 
 
-extension ProfileTableHeaderView: UITextFieldDelegate {
+// MARK: - UITextFieldDelegate
 
+extension ProfileTableHeaderView: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         statusField.endEditing(true)
         return true
     }
 }
-
 

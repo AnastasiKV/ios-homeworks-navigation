@@ -9,19 +9,24 @@ import UIKit
 
 final class ProfileViewController: UIViewController  {
     
+    
     private var allPosts: [PostModel] = PostModel.makeMockPost()
+    private var allImagesStruct: [ImageStructProfile] = ImageStructProfile.makeImageStruct()
     
     
     private lazy var  profileTableView : UITableView = {
         let profileTableView = UITableView(frame: .zero, style: .grouped)
         profileTableView.translatesAutoresizingMaskIntoConstraints = false
+        profileTableView.separatorInset = .zero
         profileTableView.dataSource = self
         profileTableView.delegate = self
-        profileTableView.backgroundColor = .white
+        profileTableView.backgroundColor = .lightGray.withAlphaComponent(0.1)
         profileTableView.rowHeight = UITableView.automaticDimension
-        profileTableView.estimatedRowHeight = 400
+        
         profileTableView.register(ProfileTableHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileTableHeaderView.identifier)
+        profileTableView.register(ImagesTableViewCell.self, forCellReuseIdentifier: ImagesTableViewCell.identifier)
         profileTableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        
         return profileTableView
     }()
     
@@ -32,13 +37,7 @@ final class ProfileViewController: UIViewController  {
         layout()
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
+
     func layout() {
         view.addSubview(profileTableView)
         
@@ -56,18 +55,28 @@ final class ProfileViewController: UIViewController  {
 }
 
 
+// MARK: - UITableViewDataSource
+
 extension ProfileViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allPosts.count
+        if section == 0 {
+            return allImagesStruct.count
+        } else {
+            return allPosts.count
+        }
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-            cell.likeDelegate = self
-            cell.setupCell(post: allPosts[indexPath.row])
+            let cell = profileTableView.dequeueReusableCell(withIdentifier: ImagesTableViewCell.identifier, for: indexPath) as! ImagesTableViewCell
+            cell.setupCell(allImagesStruct[indexPath.row])
+            cell.delegate = self
             return cell
         } else {
             let cell = profileTableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
@@ -79,6 +88,7 @@ extension ProfileViewController: UITableViewDataSource {
 }
 
 
+// MARK: - UITableViewDelegate
 
 extension ProfileViewController: UITableViewDelegate {
     
@@ -86,34 +96,49 @@ extension ProfileViewController: UITableViewDelegate {
         UITableView.automaticDimension
     }
     
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 240
+        guard section == 0 else { return .zero }
+        return 220
     }
+    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section == 0 else { return nil }
         let header = ProfileTableHeaderView()
         return header
+        
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let imageController = ImageCollectionController()
+            navigationController?.pushViewController(imageController, animated: true)
+        } else {
+            allPosts[indexPath.row].views += 1
+            let detailController = DetailPostViewController()
+            detailController.setupCell(post: allPosts[indexPath.row])
+            navigationController?.pushViewController(detailController, animated: true)
+            tableView.reloadData()
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        guard indexPath.section == 1 else { return .none }
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            allPosts.remove(at: indexPath.row)
+            profileTableView.reloadData()
+        }
+    }
 }
 
-//        func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//                if indexPath.section == 0 {
-//                    return .none
-//                } else {
-//                    return .delete
-//                }
-//            }
-//
-//        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//            self.profileTableView.beginUpdates()
-//                allPosts.remove(at: indexPath.row)
-//                self.profileTableView.deleteRows(at: [indexPath], with: .automatic)
-//                self.profileTableView.endUpdates()
-//            }
-//    }
 
-
+// MARK: - LikesTapDelegate
 
 extension ProfileViewController:  LikesTapDelegate {
     func tapLikesLabel(cell: PostTableViewCell) {
@@ -122,4 +147,15 @@ extension ProfileViewController:  LikesTapDelegate {
         }
         profileTableView.reloadData()
     }
+}
+
+
+// MARK: - ImagesTableViewCellProtocol
+
+extension ProfileViewController: ImagesTableViewCellDelegate {
+    func delegateButtonAction(cell: ImagesTableViewCell) {
+        let imagesViewController = ImageCollectionController()
+        self.navigationController?.pushViewController(imagesViewController, animated: true)
+    }
+    
 }
