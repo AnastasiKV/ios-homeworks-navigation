@@ -9,8 +9,7 @@ import UIKit
 
 final class ProfileViewController: UIViewController  {
     
-
-    private let allPosts = PostModel.makeMockPost()
+    private var allPosts: [PostModel] = PostModel.makeMockPost()
     
     
     private lazy var  profileTableView : UITableView = {
@@ -27,13 +26,18 @@ final class ProfileViewController: UIViewController  {
     }()
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
+    }
     
     func layout() {
         view.addSubview(profileTableView)
@@ -45,8 +49,7 @@ final class ProfileViewController: UIViewController  {
             profileTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             profileTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-
-
+            
         ])
     }
     
@@ -54,34 +57,69 @@ final class ProfileViewController: UIViewController  {
 
 
 extension ProfileViewController: UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allPosts.count
     }
-
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-        cell.setupCell(post: allPosts[indexPath.row])
-        return cell
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            cell.likeDelegate = self
+            cell.setupCell(post: allPosts[indexPath.row])
+            return cell
+        } else {
+            let cell = profileTableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            cell.likeDelegate = self
+            cell.setupCell(post: allPosts[indexPath.row])
+            return cell
+        }
     }
 }
 
 
 
 extension ProfileViewController: UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 240
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ProfileTableHeaderView()
         return header
     }
-
+    
 }
 
+//        func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//                if indexPath.section == 0 {
+//                    return .none
+//                } else {
+//                    return .delete
+//                }
+//            }
+//
+//        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//            self.profileTableView.beginUpdates()
+//                allPosts.remove(at: indexPath.row)
+//                self.profileTableView.deleteRows(at: [indexPath], with: .automatic)
+//                self.profileTableView.endUpdates()
+//            }
+//    }
+
+
+
+extension ProfileViewController:  LikesTapDelegate {
+    func tapLikesLabel(cell: PostTableViewCell) {
+        if let indexPathLikes = profileTableView.indexPath(for: cell) {
+            allPosts[indexPathLikes.row].likes += 1
+        }
+        profileTableView.reloadData()
+    }
+}

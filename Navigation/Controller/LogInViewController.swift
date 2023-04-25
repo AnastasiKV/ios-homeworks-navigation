@@ -11,6 +11,7 @@ class LogInViewController: UIViewController {
     
     
     private let notification = NotificationCenter.default
+    private var topButtonConstraint: NSLayoutConstraint?
     
     
     private let logScrollView: UIScrollView = {
@@ -39,11 +40,11 @@ class LogInViewController: UIViewController {
         logoLineView.translatesAutoresizingMaskIntoConstraints = false
         logoLineView.backgroundColor = .lightGray
         return logoLineView
-    
+        
     }()
     
     
-  private var logoImage: UIImageView = {
+    private var logoImage: UIImageView = {
         $0.image = UIImage(named: "ImageLogo")
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.clipsToBounds = true
@@ -62,7 +63,8 @@ class LogInViewController: UIViewController {
         loginArea.delegate = self
         loginArea.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         loginArea.tintColor = UIColor(named: "AccentColor")
-        loginArea.placeholder = "  Email or phone"
+        loginArea.placeholder = "Email or phone"
+        loginArea.layer.sublayerTransform = CATransform3DMakeTranslation(8, 0, 0)
         return loginArea
     }()
     
@@ -80,7 +82,9 @@ class LogInViewController: UIViewController {
         passwordArea.tintColor = UIColor(named: "AccentColor")
         passwordArea.clipsToBounds = true
         passwordArea.returnKeyType = .done
-        passwordArea.placeholder = "  Password"
+        passwordArea.placeholder = "Password"
+        passwordArea.layer.sublayerTransform = CATransform3DMakeTranslation(8, 0, 0)
+        
         return passwordArea
     }()
     
@@ -91,8 +95,18 @@ class LogInViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Log in", for: .normal)
         button.backgroundColor = UIColor(named: "blue_pixel")
-        button.addTarget(self, action: #selector(buttonLogProfile), for: .touchUpInside)
+        button.addTarget(self, action: #selector(clickButtonToProfile), for: .touchUpInside)
         return button
+    }()
+    
+    
+    private lazy var messageLabel: UILabel = {
+        let message = UILabel()
+        message.textColor = .black
+        message.isHidden = true
+        message.font = UIFont(name: "Helvetica-Regular", size: 14)
+        message.translatesAutoresizingMaskIntoConstraints = false
+        return message
     }()
     
     
@@ -111,7 +125,6 @@ class LogInViewController: UIViewController {
     }
     
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         notification.removeObserver(UIResponder.keyboardWillShowNotification)
@@ -126,30 +139,41 @@ class LogInViewController: UIViewController {
             logScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
         }
     }
-   
+    
     
     @objc private func keyboardWillHide() {
         logScrollView.contentInset = .zero
         logScrollView.verticalScrollIndicatorInsets = .zero
-        
     }
-
     
-     func layout() {
-         view.addSubview(logScrollView)
-
-         
-         logScrollView.addSubview(logoStackView)
-         logScrollView.addSubview(logoImage)
-         logScrollView.addSubview(button)
-         
-         logoStackView.addArrangedSubview(loginArea)
-         logoStackView.addArrangedSubview(logoLineView)
-         logoStackView.addArrangedSubview(passwordArea)
+    
+    func isPasswordCorrect(userPassword : String) -> Bool {
+        let password = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).{6,}$")
+        return password.evaluate(with: userPassword)
+    }
+    
+    
+    func isLoginCorrect(userLogin: String) -> Bool {
+        let loginRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let loginPred = NSPredicate(format:"SELF MATCHES %@", loginRegEx)
+        return loginPred.evaluate(with: userLogin)
+    }
+    
+    
+    
+    func layout() {
+        view.addSubview(logScrollView)
         
-
+        logScrollView.addSubview(logoStackView)
+        logScrollView.addSubview(logoImage)
+        logScrollView.addSubview(button)
         
-         NSLayoutConstraint.activate([
+        logoStackView.addArrangedSubview(loginArea)
+        logoStackView.addArrangedSubview(logoLineView)
+        logoStackView.addArrangedSubview(passwordArea)
+        
+        
+        NSLayoutConstraint.activate([
             
             logScrollView.topAnchor.constraint(equalTo: view.topAnchor),
             logScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -175,20 +199,58 @@ class LogInViewController: UIViewController {
             button.heightAnchor.constraint(equalToConstant: 50),
             button.trailingAnchor.constraint(equalTo: logScrollView.trailingAnchor, constant: -16),
             button.leadingAnchor.constraint(equalTo: logScrollView.leadingAnchor,constant: 16)
-
-         ])
+            
+        ])
     }
-   
-
-    @objc func buttonLogProfile() {
-        let profileController = ProfileViewController ()
-        navigationController?.pushViewController(profileController, animated: true)
-        print ("Log in Profile - successfully")
+    
+    
+    @objc private func clickButtonToProfile() {
         
+        let login = isLoginCorrect (userLogin: loginArea.text!)
+        
+        if (login == false) {
+            let alertController = UIAlertController(title: "Error", message: "Please enter a valid email address or phone.", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+        
+        let password = isPasswordCorrect (userPassword: passwordArea.text!)
+        
+        let errorMsg = "Password requires at least"
+        
+        if(password == false) {
+            self.messageLabel.isHidden = false
+            self.logScrollView.addSubview(self.messageLabel)
+            self.topButtonConstraint?.isActive = false
+            
+        } else {
+            
+            self.messageLabel.removeFromSuperview()
+            self.messageLabel.isHidden = true
+        }
+        
+        if self.loginArea.text == "" {
+            loginArea.shake()
+        } else if passwordArea.text == "" {
+            loginArea.shake()
+        } else if self.loginArea.text == "iosdevelop@yandex.ru" && passwordArea.text == "qwerty19!FT" {
+            
+            
+            let profileController = ProfileViewController ()
+            navigationController?.pushViewController(profileController, animated: true)
+            
+            
+        } else {
+            
+            let alertController = UIAlertController(title: "Password Error", message: errorMsg, preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
-        
 }
-
 
 
 extension LogInViewController: UITextFieldDelegate {
@@ -198,7 +260,15 @@ extension LogInViewController: UITextFieldDelegate {
         return true
     }
     
-    
-    
 }
 
+
+extension UIView {
+    func shake() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = 0.6
+        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
+        layer.add(animation, forKey: "shake")
+    }
+}

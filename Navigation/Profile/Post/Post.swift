@@ -30,5 +30,3 @@ struct PostModel {
         return examplePost
     }
 }
-   
-    
