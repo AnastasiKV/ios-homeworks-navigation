@@ -29,7 +29,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let logIn = UINavigationController(rootViewController: LogInViewController ())
         return logIn
     }
-    
 
     
 
