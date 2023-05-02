@@ -89,7 +89,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView  {
     
     private lazy var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
-        fullNameLabel.text = "Anastasiia Kulikova"
+        fullNameLabel.text = "Hipster Lion"
         fullNameLabel.textColor = .black
         fullNameLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
