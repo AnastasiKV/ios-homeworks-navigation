@@ -18,6 +18,7 @@ class ImageCollectionController: UIViewController {
         
         let imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         imageCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        imageCollectionView.clipsToBounds = true
         imageCollectionView.register(MyImageCollectionViewCell.self, forCellWithReuseIdentifier: MyImageCollectionViewCell.identifier)
         
         return imageCollectionView
