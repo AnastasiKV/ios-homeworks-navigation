@@ -8,11 +8,11 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-
-
-        var post = Post (title: "My Post")
-
-
+    
+    
+    var post = ("My Post")
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .orange
@@ -22,17 +22,15 @@ class FeedViewController: UIViewController {
         button.setTitle("Go Post", for: .normal)
         button.layer.cornerRadius = 26
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-
+        
         self.view.addSubview(button)
-      }
-
-      @objc func buttonAction(sender: UIButton!) {
-          let postViewController = PostViewController()
-          self.navigationController?.pushViewController(postViewController, animated: true)
-
-         
-          
-      }
+    }
+    
+    @objc func buttonAction(sender: UIButton!) {
+        let postViewController = PostViewController()
+        self.navigationController?.pushViewController(postViewController, animated: true)
+        
+    }
 }
 
 
