@@ -101,7 +101,12 @@ class ImagesTableViewCell: UITableViewCell {
         
         [imagesLabel, firstImageView, secondImageView, thirdImageView, fourthImageView, arrowButton].forEach { contentView.addSubview($0) }
         
-        let imageSize = (UIScreen.main.bounds.width - 45)/3
+        let photoCountPerRow = 4
+        let photoSpacing: CGFloat = 8
+        let aspectRatio: CGFloat = 3.0 / 4.0
+        let availableWidth = UIScreen.main.bounds.width - CGFloat(photoCountPerRow - 1) * photoSpacing
+        let imageSize = CGSize(width: availableWidth / CGFloat(photoCountPerRow), height: availableWidth / CGFloat(photoCountPerRow) * aspectRatio)
+    
         
         NSLayoutConstraint.activate([
             
@@ -110,29 +115,29 @@ class ImagesTableViewCell: UITableViewCell {
             
             
             firstImageView.topAnchor.constraint(equalTo: imagesLabel.bottomAnchor, constant: 12),
-            firstImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            firstImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: photoSpacing),
             firstImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-            firstImageView.heightAnchor.constraint(equalToConstant: imageSize),
-            firstImageView.widthAnchor.constraint(equalToConstant: imageSize),
+            firstImageView.heightAnchor.constraint(equalToConstant: imageSize.height),
+            firstImageView.widthAnchor.constraint(equalToConstant: imageSize.width),
             
             secondImageView.topAnchor.constraint(equalTo: imagesLabel.bottomAnchor, constant: 12),
-            secondImageView.leadingAnchor.constraint(equalTo: firstImageView.trailingAnchor, constant: 8),
+            secondImageView.leadingAnchor.constraint(equalTo: firstImageView.trailingAnchor, constant: photoSpacing),
             secondImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-            secondImageView.heightAnchor.constraint(equalToConstant: imageSize),
-            secondImageView.widthAnchor.constraint(equalToConstant: imageSize),
+            secondImageView.heightAnchor.constraint(equalToConstant: imageSize.height),
+            secondImageView.widthAnchor.constraint(equalToConstant: imageSize.width),
             
             
             thirdImageView.topAnchor.constraint(equalTo: imagesLabel.bottomAnchor, constant: 12),
-            thirdImageView.leadingAnchor.constraint(equalTo: secondImageView.trailingAnchor, constant: 8),
+            thirdImageView.leadingAnchor.constraint(equalTo: secondImageView.trailingAnchor, constant: photoSpacing),
             thirdImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-            thirdImageView.heightAnchor.constraint(equalToConstant: imageSize),
-            thirdImageView.widthAnchor.constraint(equalToConstant: imageSize),
+            thirdImageView.heightAnchor.constraint(equalToConstant: imageSize.height),
+            thirdImageView.widthAnchor.constraint(equalToConstant: imageSize.width),
             
             fourthImageView.topAnchor.constraint(equalTo: imagesLabel.bottomAnchor, constant: 12),
-            fourthImageView.leadingAnchor.constraint(equalTo: thirdImageView.trailingAnchor, constant: 8),
+            fourthImageView.leadingAnchor.constraint(equalTo: thirdImageView.trailingAnchor, constant: photoSpacing),
             fourthImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-            fourthImageView.heightAnchor.constraint(equalToConstant: imageSize),
-            fourthImageView.widthAnchor.constraint(equalToConstant: imageSize),
+            fourthImageView.heightAnchor.constraint(equalToConstant: imageSize.height),
+            fourthImageView.widthAnchor.constraint(equalToConstant: imageSize.width),
             
             
             arrowButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
